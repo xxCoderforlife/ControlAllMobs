@@ -1,0 +1,6 @@
+Mobs:
+  Kill-On-Leave: true
+  Deny-Spawn:
+   - WITCH
+   - COW
+   

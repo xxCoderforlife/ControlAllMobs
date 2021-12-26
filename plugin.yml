@@ -1,0 +1,16 @@
+name: ControlAllMobs
+version: 0.0.3
+author: xxCoderforlife
+prefix: CAM
+load: POSTWORLD
+api-version: 1.13
+main: me.Coderforlife.ControlAllMobs.Main
+
+#COMMANDS
+commands:
+ killzombies:
+   permission: zombies.main
+   description: Kill All the Zombies
+ killmobs:
+   permission: KAM.mobs
+   description: dfefau
