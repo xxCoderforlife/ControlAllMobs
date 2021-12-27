@@ -35,6 +35,9 @@ public class VexMob implements Listener{
 		if(!(e.getEntity().getType() == EntityType.VEX)) {
 			return;
 		}
+		if(VexConfig.getBoolean("Vex.Can-Spawn") == true) {
+			
+		}
 	}
 	
 	public void createVexConfig() {

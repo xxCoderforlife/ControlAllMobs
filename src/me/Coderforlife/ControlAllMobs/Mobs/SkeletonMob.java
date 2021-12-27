@@ -43,6 +43,7 @@ public class SkeletonMob implements Listener,CommandExecutor{
 		if(!(e.getEntity().getType() == EntityType.SKELETON)) {
 			return;
 		}
+		if(SkeletonConfig.getBoolean("Skeleton.Can-Spawn") == true) {
 		Skeleton skel = (Skeleton) e.getEntity();
 		skel.setCustomName(ChatColor.translateAlternateColorCodes('&',SkeletonConfig.getString("Skeleton.Name")));
 		skel.setAI(SkeletonConfig.getBoolean("Skeleton.Has-A-Brain"));
@@ -53,6 +54,7 @@ public class SkeletonMob implements Listener,CommandExecutor{
 		skel.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(SkeletonConfig.getDouble("Skeleton.Speed"));
 		skel.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(SkeletonConfig.getDouble("Skeleton.Max-Health"));
 		//skel.getAttribute(Attribute.GENERIC_ATTACK_SPEED).getBaseValue();
+		}
 	}
 	
 	public void createSkeletonConfig() {
@@ -77,10 +79,9 @@ public class SkeletonMob implements Listener,CommandExecutor{
 			SkeletonConfig.set("Skeleton.Attack-Speed", (double) 1);
 			SkeletonConfig.set("Skeleton.Follow-Range", (double) 12);
 			SkeletonConfig.set("Skeleton.Speed", (double) 0.2);
+			SkeletonConfig.set("Skeleton.Can-Spawn", (boolean) true);
 			SkeletonConfig.set("Skeleton.Max-Health", (double) 100);
 			}
-
-
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

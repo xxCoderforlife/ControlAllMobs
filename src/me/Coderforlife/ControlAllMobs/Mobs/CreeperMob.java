@@ -124,6 +124,7 @@ public class CreeperMob implements Listener {
 		if (!(e.getEntity() instanceof Creeper)) {
 			return;
 		}
+		if(CreeperConfig.getBoolean("Creeper.Can-Spawn") == true) {
 		Creeper creeper = (Creeper) e.getEntity();
 		creeper.setCustomName(ChatColor.translateAlternateColorCodes('&', CreeperConfig.getString("Creeper.Name")));
 		creeper.setMaxFuseTicks(CreeperConfig.getInt("Creeper.Max-Fuse-Timer"));
@@ -142,8 +143,6 @@ public class CreeperMob implements Listener {
 				.setBaseValue((double) CreeperConfig.getDouble("Creeper.Follow-Range"));
 		creeper.getAttribute(Attribute.GENERIC_MAX_HEALTH)
 				.setBaseValue((double) CreeperConfig.getDouble("Creeper.Max-Health"));
-				
-
+		}		
 	}
-
 }

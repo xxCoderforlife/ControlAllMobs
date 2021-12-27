@@ -38,7 +38,7 @@ public class BatMob implements Listener{
 		if(!(e.getEntity().getType() == EntityType.BAT)) {
 			return;
 		}
-		
+		if(BatConfig.getBoolean("Bat.Can-Spawn") == true) {
 		Bat b = (Bat) e.getEntity();
 		b.setCustomName(ChatColor.translateAlternateColorCodes('&', BatConfig.getString("Bat.Name")));
 		b.setCustomNameVisible(BatConfig.getBoolean("Bat.Custom-Name-Visable"));
@@ -46,6 +46,8 @@ public class BatMob implements Listener{
 		b.setCanPickupItems(BatConfig.getBoolean("Bat.Can-PickUp-Items"));
 		b.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(BatConfig.getDouble("Bat.Max-Health"));
 		b.getAttribute(Attribute.GENERIC_FLYING_SPEED).setBaseValue(BatConfig.getDouble("Bat.Flying.Speed"));
+			
+		}
 	}
 	
 	public void createBatConfig() {
@@ -68,6 +70,7 @@ public class BatMob implements Listener{
 			BatConfig.set("Bat.Has-A-Brain", (boolean) true);
 			BatConfig.set("Bat.Can-PickUp-Items", (boolean) false);
 			BatConfig.set("Bat.Max-Health", (double) 100);
+			BatConfig.set("Bat.Can-Spawn", (boolean) true);
 			BatConfig.set("Bat.Flying-Speed", (double) 0.2);
 		}
 		try {

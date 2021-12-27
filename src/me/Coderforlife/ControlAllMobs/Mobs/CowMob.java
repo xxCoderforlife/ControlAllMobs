@@ -38,6 +38,7 @@ public class CowMob implements Listener{
 		if(!(e.getEntity().getType() == EntityType.COW)) {
 			return;
 		}
+		if(CowConfig.getBoolean("Cow.Can-Spawn") == true) {
 		Cow c = (Cow) e.getEntity();
 		c.setCustomName(CowConfig.getString("Cow.Name"));
 		c.setCustomNameVisible(CowConfig.getBoolean("Cow.Custom-Name-Visable"));
@@ -49,6 +50,7 @@ public class CowMob implements Listener{
 		c.setSilent(CowConfig.getBoolean("Cow.No-Mooing"));
 		c.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(CowConfig.getDouble("Cow.Speed"));
 		c.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(CowConfig.getDouble("Cow.Max-Health"));
+		}
 		
 	}
 	
@@ -75,6 +77,7 @@ public class CowMob implements Listener{
 			CowConfig.set("Cow.Custom-Name-Visable", (boolean) true);
 			CowConfig.set("Cow.Glowing", (boolean) false);
 			CowConfig.set("Cow.Speed", (double) 0.2);
+			CowConfig.set("Cow.Can-Spawn", (boolean) true);
 			CowConfig.set("Cow.Max-Health", (double) 100);
 			}
 			saveCowConfig();

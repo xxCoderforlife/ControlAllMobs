@@ -13,6 +13,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 import me.Coderforlife.ControlAllMobs.Main;
+import me.Coderforlife.ControlAllMobs.Utils.ChatUtils;
 import me.Coderforlife.ControlAllMobs.Utils.Messages;
 import net.md_5.bungee.api.ChatColor;
 
@@ -25,6 +26,7 @@ public class KillMobs implements CommandExecutor {
 	}
 
 	Messages m = new Messages();
+	ChatUtils chat = new ChatUtils();
 
 	public boolean onCommand(CommandSender sender, Command command, String Commandlabel, String[] args) {
 		if (sender instanceof Player) {
@@ -135,50 +137,37 @@ public class KillMobs implements CommandExecutor {
 			}
 		}
 		if (sender instanceof ConsoleCommandSender) {
-			ConsoleCommandSender console = Bukkit.getConsoleSender();
 			if (args.length == 0) {
 				if (command.getName().equalsIgnoreCase("killmobs")) {
-					console.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&oUse the following commands:"));
-					console.sendMessage(m.dash
-							+ ChatColor.translateAlternateColorCodes('&', "&b&o/killmobs &amobs &4&lMOBNAME"));
-					console.sendMessage(m.dash + ChatColor.translateAlternateColorCodes('&',
-							"&b&o/killmobs &akillall &7&o(&f&lRemoves all unnamed mobs)"));
-					console.sendMessage(m.dash + ChatColor.translateAlternateColorCodes('&',
-							"&b&o/killmobs &akillall unsafe &7&o(&f&lRemoves all Mobs,Drops, and Entites even if named&7&o)"));
+					chat.SendConsoleMessage("&c&oUse the following commands:");
+					chat.SendConsoleMessage(m.dash
+							+ "&b&o/killmobs &amobs &4&lMOBNAME");
+					chat.SendConsoleMessage(m.dash + "&b&o/killmobs &akillall &7&o(&f&lRemoves all unnamed mobs)");
+					chat.SendConsoleMessage(m.dash + "&b&o/killmobs &akillall unsafe &7&o(&f&lRemoves all Mobs,Drops, and Entites even if named&7&o)");
 				}
 			}
 			if (args.length == 1) {
 				if (args[0].equalsIgnoreCase("killall")) {
 					for (World worlds : Bukkit.getWorlds()) {
+						final int mobsint = worlds.getEntities().size();
+						String mobs = Integer.toString(mobsint);
 						for (Entity en : worlds.getEntities()) {
 							if (!(en instanceof Player)) {
 								en.remove();
 							}
 						}
+						chat.SendConsoleMessage(m.prefix + "Wow you are a &4&lMonster&r you just killed &a&l" + mobs + "&r Mobs");
 					}
-					console.sendMessage(m.prefix + ChatColor.translateAlternateColorCodes('&',
-							"Wow you are a &4&lMonster&r you just killed &a&l"));
+					
+				}else if(!args[0].equalsIgnoreCase("killall")) {
+					chat.SendConsoleMessage("&c&o" + args[0].toString() + "&f is not a vaild command.");
 				}
 			}
-			if (args.length == 2) {
-				try {
-					EntityType ent = EntityType.valueOf((String) args[1].toUpperCase());
-					for (World worlds : Bukkit.getWorlds()) {
-						for (Entity en : worlds.getEntities()) {
-							if (en.getType() == ent) {
-								en.remove();
-							}
-						}
-					}
-					console.sendMessage(m.prefix
-							+ ChatColor.translateAlternateColorCodes('&', "&aKilled all &e" + args[1] + "S"));
-				} catch (IllegalArgumentException e) {
-					console.sendMessage(m.prefix
-							+ ChatColor.translateAlternateColorCodes('&', "&c" + args[1] + " is not a vaild Entity"));
-				}
+			if(args.length >= 2) {
+				chat.SendConsoleMessage(m.prefix + "&c&oToo Many Args!");
 			}
 		}
-		return true;
+		return false;
 
 	}
 }

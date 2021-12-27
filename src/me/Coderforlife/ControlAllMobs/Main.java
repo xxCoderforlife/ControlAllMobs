@@ -11,7 +11,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.Coderforlife.ControlAllMobs.Commands.KillMobs;
 import me.Coderforlife.ControlAllMobs.Commands.KillZombies;
-import me.Coderforlife.ControlAllMobs.Events.MobEgg;
 import me.Coderforlife.ControlAllMobs.Events.MobSpawn;
 import me.Coderforlife.ControlAllMobs.Events.PlayerQuit;
 import me.Coderforlife.ControlAllMobs.Mobs.BatMob;
@@ -110,7 +109,6 @@ public class Main extends JavaPlugin {
 	}
 
 	public void registerEvents() {
-		this.getServer().getPluginManager().registerEvents(new MobEgg(this), this);
 		this.getServer().getPluginManager().registerEvents(new MobSpawn(this), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerQuit(this), this);
 		this.getCommand("killzombies").setExecutor(new KillZombies(this));
