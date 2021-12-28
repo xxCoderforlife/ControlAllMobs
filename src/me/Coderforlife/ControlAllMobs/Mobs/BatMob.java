@@ -48,6 +48,8 @@ public class BatMob implements Listener{
 		b.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(BatConfig.getDouble("Bat.Max-Health"));
 		b.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(BatConfig.getDouble("Bat.Flying.Speed"));
 			
+		}else {
+			e.setCancelled(true);
 		}
 	}
 	

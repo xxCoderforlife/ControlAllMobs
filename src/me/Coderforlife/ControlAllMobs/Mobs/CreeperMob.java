@@ -61,7 +61,9 @@ public class CreeperMob implements Listener {
 				.setBaseValue((double) CreeperConfig.getDouble("Creeper.Follow-Range"));
 		creeper.getAttribute(Attribute.GENERIC_MAX_HEALTH)
 				.setBaseValue((double) CreeperConfig.getDouble("Creeper.Max-Health"));
-		}		
+		}else {		
+			e.setCancelled(true);
+		}
 	}
 	
 	public void createCreeperConfig() {

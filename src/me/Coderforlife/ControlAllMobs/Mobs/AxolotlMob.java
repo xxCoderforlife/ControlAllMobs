@@ -40,6 +40,7 @@ public class AxolotlMob implements Listener{
 		if(!(e.getEntity().getType() == EntityType.AXOLOTL)) {
 			return;
 		}
+		if(AxoConfig.getBoolean("Axolotl.Can-Spawn")) {
 		Axolotl axo = (Axolotl) e.getEntity();
 		axo.setCustomName(ChatColor.translateAlternateColorCodes('&', AxoConfig.getString("Axolotl.Name")));
 		axo.setCustomNameVisible(AxoConfig.getBoolean("Axolotl.Custom-Name-Visable"));
@@ -52,6 +53,10 @@ public class AxolotlMob implements Listener{
 		axo.setLoveModeTicks(AxoConfig.getInt("Axolotl.How-Long-Will-I-Love-You"));
 		axo.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(AxoConfig.getDouble("Axolotl.Max-Health"));
 		axo.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(AxoConfig.getDouble("Axolotl.Speed"));
+		}else {
+			e.setCancelled(true);
+
+		}
 	}
 	
 	public void createAxolotlConfig() {
@@ -78,6 +83,7 @@ public class AxolotlMob implements Listener{
 				AxoConfig.set("Axolotl.Age-Lock", (boolean) false);
 				AxoConfig.set("Axolotl.Has-A-Brain", (boolean) true);
 				AxoConfig.set("Axolotl.Can-Breed", (boolean) true);
+				AxoConfig.set("Axololtl.Can-Spawn", (boolean) true);
 				AxoConfig.set("Axolotl.Can-PickUp-Items", (boolean) false);
 				AxoConfig.set("Axolotl.Glowing", (boolean) false);
 				AxoConfig.set("Axolotl.How-Long-Will-I-Love-You", (int) 600);

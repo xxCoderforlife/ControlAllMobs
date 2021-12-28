@@ -55,6 +55,8 @@ public class SkeletonMob implements Listener,CommandExecutor{
 		skel.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(SkeletonConfig.getDouble("Skeleton.Speed"));
 		skel.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(SkeletonConfig.getDouble("Skeleton.Max-Health"));
 		//skel.getAttribute(Attribute.GENERIC_ATTACK_SPEED).getBaseValue();
+		}else {
+			e.setCancelled(true);
 		}
 	}
 	

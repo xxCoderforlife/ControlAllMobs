@@ -41,6 +41,7 @@ public class BeeMob implements Listener {
 		}
 		
 		Bee b = (Bee) e.getEntity();
+		if(BeeConfig.getBoolean("Bee.Can-Spawn") == true) {
 		b.setCustomName(ChatColor.translateAlternateColorCodes('&', BeeConfig.getString("Bee.Name")));
 		b.setCustomNameVisible(BeeConfig.getBoolean("Bee.Custom-Name-Visable"));
 		b.setAge(BeeConfig.getInt("Bee.Age"));
@@ -52,7 +53,11 @@ public class BeeMob implements Listener {
 		b.setSilent(BeeConfig.getBoolean("Bee.NoBuzzing"));
 		b.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(BeeConfig.getDouble("Bee.Max-Health"));
 		b.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(BeeConfig.getDouble("Bee.Speed"));
+	}else {
+		e.setCancelled(true);
+
 	}
+		}
 
 	public void createBeeConfig() {
 		chat.SendConsoleMessage(m.prefix + "&a&oLoading Bee Configuration...");
@@ -72,7 +77,8 @@ public class BeeMob implements Listener {
 		try {
 			BeeConfig.load(BeeConfigFile);
 			if(!BeeConfig.contains("Bee.Max-Health")) {
-				BeeConfig.set("Bee.Name", "&6&oBee");
+				BeeConfig.set("Bee.Name", (String) "&6&oBee");
+				BeeConfig.set("Bee.Can-Spawn", (boolean) true);
 				BeeConfig.set("Bee.Custom-Name-Visable", (boolean) true);
 				BeeConfig.set("Bee.Age", (int) 1);
 				BeeConfig.set("Bee.Age-Lock", (boolean) false);

@@ -52,9 +52,8 @@ public class CowMob implements Listener{
 		c.setSilent(CowConfig.getBoolean("Cow.No-Mooing"));
 		c.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(CowConfig.getDouble("Cow.Speed"));
 		c.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(CowConfig.getDouble("Cow.Max-Health"));
-		chat.SendConsoleMessage("didnt spawn");
 		}else {
-			chat.SendConsoleMessage("returns false");
+			e.setCancelled(true);
 		}
 		
 	}
@@ -78,6 +77,7 @@ public class CowMob implements Listener{
 			CowConfig.load(CowConfigFile);
 			if(!CowConfig.contains("Cow.Max-Health")) {
 			CowConfig.set("Cow.Name", (String) "&e&oCow");
+			CowConfig.set("Cow.Can-Spawn", (boolean) true);
 			CowConfig.set("Cow.Age", (int) 1);
 			CowConfig.set("Cow.Has-A-Brain", (boolean) true);
 			CowConfig.set("Cow.Can-Breed", (boolean) true);
@@ -86,7 +86,6 @@ public class CowMob implements Listener{
 			CowConfig.set("Cow.Custom-Name-Visable", (boolean) true);
 			CowConfig.set("Cow.Glowing", (boolean) false);
 			CowConfig.set("Cow.Speed", (double) 0.2);
-			CowConfig.set("Cow.Can-Spawn", (boolean) true);
 			CowConfig.set("Cow.Max-Health", (double) 100);
 			}
 
