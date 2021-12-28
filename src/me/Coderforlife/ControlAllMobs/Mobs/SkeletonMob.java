@@ -15,6 +15,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
 
@@ -38,7 +39,7 @@ public class SkeletonMob implements Listener,CommandExecutor{
 	ChatUtils chat = new ChatUtils();
 	Messages m = new Messages();
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onSkeletonSpawn(EntitySpawnEvent e) {
 		if(!(e.getEntity().getType() == EntityType.SKELETON)) {
 			return;

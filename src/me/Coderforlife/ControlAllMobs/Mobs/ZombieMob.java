@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
 
@@ -31,7 +32,7 @@ public class ZombieMob implements Listener{
 	private File ZombieConfigFile;
 	private FileConfiguration ZombieConfig;
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onZombieSpawn(EntitySpawnEvent e) {
 		if(!(e.getEntity().getType() == EntityType.ZOMBIE)) {
 			return;

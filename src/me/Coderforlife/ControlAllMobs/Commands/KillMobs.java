@@ -86,7 +86,7 @@ public class KillMobs implements CommandExecutor {
 				}else if(args[0].equalsIgnoreCase("reload")) {
 					if(p.hasPermission(m.perm + "reload")) {
 						p.sendMessage("");
-						plugin.cm.ReloadCreeperConfig();
+						plugin.reloadConfig();
 					}
 				}
 			}

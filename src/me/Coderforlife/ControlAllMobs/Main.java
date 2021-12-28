@@ -11,9 +11,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.Coderforlife.ControlAllMobs.Commands.KillMobs;
 import me.Coderforlife.ControlAllMobs.Commands.KillZombies;
-import me.Coderforlife.ControlAllMobs.Events.MobSpawn;
 import me.Coderforlife.ControlAllMobs.Events.PlayerQuit;
+import me.Coderforlife.ControlAllMobs.Mobs.AxolotlMob;
 import me.Coderforlife.ControlAllMobs.Mobs.BatMob;
+import me.Coderforlife.ControlAllMobs.Mobs.BeeMob;
 import me.Coderforlife.ControlAllMobs.Mobs.CowMob;
 import me.Coderforlife.ControlAllMobs.Mobs.CreeperMob;
 import me.Coderforlife.ControlAllMobs.Mobs.SkeletonMob;
@@ -21,7 +22,11 @@ import me.Coderforlife.ControlAllMobs.Mobs.VexMob;
 import me.Coderforlife.ControlAllMobs.Mobs.ZombieMob;
 import me.Coderforlife.ControlAllMobs.TabCommands.Tabs;
 import me.Coderforlife.ControlAllMobs.Utils.ChatUtils;
-
+/**
+ * Control All Mobs
+ * @author xxCoderforlife
+ * @version 0.0.3
+ */
 public class Main extends JavaPlugin {
 
 	public File mobConfigFile;
@@ -40,6 +45,8 @@ public class Main extends JavaPlugin {
 	public BatMob batm;
 	public VexMob vexm;
 	public ZombieMob zm;
+	public AxolotlMob axom;
+	public BeeMob bm;
 
 
 	@Override
@@ -109,7 +116,6 @@ public class Main extends JavaPlugin {
 	}
 
 	public void registerEvents() {
-		this.getServer().getPluginManager().registerEvents(new MobSpawn(this), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerQuit(this), this);
 		this.getCommand("killzombies").setExecutor(new KillZombies(this));
 		this.getCommand("killmobs").setExecutor(new KillMobs(this));
@@ -117,10 +123,18 @@ public class Main extends JavaPlugin {
 	}
 	
 	private void SetupMobs() {
+		//Setting Up Axolotl
+		this.axom = new AxolotlMob(this);
+		axom.createAxolotlConfig();
+		axom.saveAxolotlConfig();
 		//Setting Up Bat
 		this.batm = new BatMob(this);
 		batm.createBatConfig();
 		batm.saveBatConfig();
+		//Setting Up Bee
+		this.bm = new BeeMob(this);
+		bm.createBeeConfig();
+		bm.saveBeeConfig();
 		//Setting Up Cow
 		this.cowm = new CowMob(this);
 		cowm.createCowConfig();

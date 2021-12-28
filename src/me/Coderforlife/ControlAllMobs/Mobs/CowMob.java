@@ -11,12 +11,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Cow;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
 
 import me.Coderforlife.ControlAllMobs.Main;
 import me.Coderforlife.ControlAllMobs.Utils.ChatUtils;
 import me.Coderforlife.ControlAllMobs.Utils.Messages;
+import net.md_5.bungee.api.ChatColor;
 
 public class CowMob implements Listener{
 
@@ -33,14 +35,14 @@ public class CowMob implements Listener{
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onCowSpawn(EntitySpawnEvent e) {
 		if(!(e.getEntity().getType() == EntityType.COW)) {
 			return;
 		}
 		if(CowConfig.getBoolean("Cow.Can-Spawn") == true) {
 		Cow c = (Cow) e.getEntity();
-		c.setCustomName(CowConfig.getString("Cow.Name"));
+		c.setCustomName(ChatColor.translateAlternateColorCodes('&', CowConfig.getString("Cow.Name")));
 		c.setCustomNameVisible(CowConfig.getBoolean("Cow.Custom-Name-Visable"));
 		c.setAI(CowConfig.getBoolean("Cow.Has-A-Brain"));
 		c.setCanPickupItems(CowConfig.getBoolean("Cow.Can-PickUp-Items"));
@@ -50,6 +52,9 @@ public class CowMob implements Listener{
 		c.setSilent(CowConfig.getBoolean("Cow.No-Mooing"));
 		c.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(CowConfig.getDouble("Cow.Speed"));
 		c.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(CowConfig.getDouble("Cow.Max-Health"));
+		chat.SendConsoleMessage("didnt spawn");
+		}else {
+			chat.SendConsoleMessage("returns false");
 		}
 		
 	}
@@ -64,6 +69,10 @@ public class CowMob implements Listener{
 				e.printStackTrace();
 			}
 		}
+		loadCowConfig();
+	}
+	
+	public void loadCowConfig() {
 		CowConfig = new YamlConfiguration();
 		try {
 			CowConfig.load(CowConfigFile);
@@ -80,25 +89,11 @@ public class CowMob implements Listener{
 			CowConfig.set("Cow.Can-Spawn", (boolean) true);
 			CowConfig.set("Cow.Max-Health", (double) 100);
 			}
-			saveCowConfig();
-
 
 		} catch (FileNotFoundException e) {
 			chat.SendConsoleMessage(m.prefix + "&c&oCould not find cow.yml.");
 			chat.SendConsoleMessage(m.prefix + "&a&oCreating one and doing all the the loading and what not..");
 			createCowConfig();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InvalidConfigurationException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void loadCowConfig() {
-		try {
-			CowConfig.load(CowConfigFile);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InvalidConfigurationException e) {

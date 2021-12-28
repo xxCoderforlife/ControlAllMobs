@@ -11,6 +11,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
 
@@ -33,7 +34,7 @@ public class BatMob implements Listener{
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBatSpawn(EntitySpawnEvent e) {
 		if(!(e.getEntity().getType() == EntityType.BAT)) {
 			return;
@@ -45,7 +46,7 @@ public class BatMob implements Listener{
 		b.setAI(BatConfig.getBoolean("Bat.Has-A-Brain"));
 		b.setCanPickupItems(BatConfig.getBoolean("Bat.Can-PickUp-Items"));
 		b.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(BatConfig.getDouble("Bat.Max-Health"));
-		b.getAttribute(Attribute.GENERIC_FLYING_SPEED).setBaseValue(BatConfig.getDouble("Bat.Flying.Speed"));
+		b.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(BatConfig.getDouble("Bat.Flying.Speed"));
 			
 		}
 	}
@@ -64,18 +65,18 @@ public class BatMob implements Listener{
 	
 	public void loadBatConfig() {
 		BatConfig = new YamlConfiguration();
-		if(!BatConfig.contains("Bat.Flying.Speed")) {
-			BatConfig.set("Bat.Name", (String) "&d&oBat");
-			BatConfig.set("Bat.Custom-Name-Visable", (boolean) true);
-			BatConfig.set("Bat.Has-A-Brain", (boolean) true);
-			BatConfig.set("Bat.Can-PickUp-Items", (boolean) false);
-			BatConfig.set("Bat.Max-Health", (double) 100);
-			BatConfig.set("Bat.Can-Spawn", (boolean) true);
-			BatConfig.set("Bat.Flying-Speed", (double) 0.2);
-		}
 		try {
 			chat.SendConsoleMessage(m.prefix + "&a&oLoading Bat Configuration...");
 			BatConfig.load(BatConfigFile);
+			if(!BatConfig.contains("Bat.Flying.Speed")) {
+				BatConfig.set("Bat.Name", (String) "&d&oBat");
+				BatConfig.set("Bat.Custom-Name-Visable", (boolean) true);
+				BatConfig.set("Bat.Has-A-Brain", (boolean) true);
+				BatConfig.set("Bat.Can-PickUp-Items", (boolean) false);
+				BatConfig.set("Bat.Max-Health", (double) 100);
+				BatConfig.set("Bat.Can-Spawn", (boolean) true);
+				BatConfig.set("Bat.Flying-Speed", (double) 0.2);
+			}
 		} catch (FileNotFoundException e) {
 			chat.SendConsoleMessage(m.prefix + "&c&oBat.yml was not found.");
 			chat.SendConsoleMessage(m.prefix + "&a&oCreating Bat.yml...");
